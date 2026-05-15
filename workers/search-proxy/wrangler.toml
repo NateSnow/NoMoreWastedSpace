@@ -1,0 +1,7 @@
+name = "gridfinity-makerworld-search-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+MAKERWORLD_API_BASE = "https://makerworld.com"
+CACHE_TTL_SECONDS = "300"

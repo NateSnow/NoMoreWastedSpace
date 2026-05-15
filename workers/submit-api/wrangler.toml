@@ -1,0 +1,10 @@
+name = "gridfinity-submit-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-05"
+
+[vars]
+OPERATOR_EMAIL = "operator@example.com"
+
+# Secrets (set via `wrangler secret put`):
+# RESEND_API_KEY - API key for Resend email service
+# FROM_EMAIL - Verified sender email address for Resend

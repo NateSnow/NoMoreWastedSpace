@@ -1,0 +1,638 @@
+/**
+ * App layout styles for the Gridfinity Drawer Designer.
+ *
+ * Responsive layout:
+ * - Single-column at < 768px viewport width
+ * - Multi-panel (side-by-side) layout at ≥ 768px
+ *
+ * Requirements: 7.4, 7.5
+ */
+
+/* --- App container --- */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+  color: #1a1a1a;
+  background: #f8f9fa;
+}
+
+/* --- Header --- */
+.app__header {
+  padding: 16px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.app__header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1565c0;
+}
+
+/* --- Main content area --- */
+.app__main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px;
+  gap: 16px;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- Panels --- */
+.app__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app__panel--primary {
+  flex: 1 1 auto;
+}
+
+.app__panel--secondary {
+  flex: 1 1 auto;
+}
+
+/* --- Clear All section --- */
+.app__clear-section {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 0;
+}
+
+.app__clear-button {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #d32f2f;
+  background: #ffffff;
+  border: 1px solid #d32f2f;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.app__clear-button:hover {
+  background: #d32f2f;
+  color: #ffffff;
+}
+
+.app__clear-button:focus-visible {
+  outline: 2px solid #d32f2f;
+  outline-offset: 2px;
+}
+
+/* --- Dialog overlay --- */
+.app__dialog-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  padding: 16px;
+}
+
+.app__dialog {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.app__dialog h2 {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  color: #1a1a1a;
+}
+
+.app__dialog p {
+  margin: 0 0 20px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.app__dialog-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.app__dialog-button {
+  padding: 8px 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.2s;
+}
+
+.app__dialog-button--confirm {
+  background: #d32f2f;
+  color: #ffffff;
+  border-color: #d32f2f;
+}
+
+.app__dialog-button--confirm:hover {
+  background: #b71c1c;
+}
+
+.app__dialog-button--confirm:focus-visible {
+  outline: 2px solid #d32f2f;
+  outline-offset: 2px;
+}
+
+.app__dialog-button--cancel {
+  background: #f5f5f5;
+  color: #333;
+  border-color: #ccc;
+}
+
+.app__dialog-button--cancel:hover {
+  background: #e0e0e0;
+}
+
+.app__dialog-button--cancel:focus-visible {
+  outline: 2px solid #1565c0;
+  outline-offset: 2px;
+}
+
+/* --- Responsive: Multi-panel layout at ≥ 768px --- */
+@media (min-width: 768px) {
+  .app__main {
+    flex-direction: row;
+    padding: 24px;
+    gap: 24px;
+  }
+
+  .app__panel--primary {
+    flex: 3 1 0;
+    min-width: 0;
+  }
+
+  .app__panel--secondary {
+    flex: 2 1 0;
+    min-width: 0;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+}
+
+/* --- Component section styling --- */
+.app__panel section,
+.app__panel .makerworld-search,
+.app__panel .grid-canvas-container {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* --- Dimension input field layout --- */
+.dimension-field {
+  margin-bottom: 12px;
+}
+
+.dimension-field label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.dimension-field input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.dimension-field input:focus {
+  outline: none;
+  border-color: #1565c0;
+  box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.2);
+}
+
+.dimension-field input[aria-invalid="true"] {
+  border-color: #d32f2f;
+}
+
+.dimension-error {
+  color: #d32f2f;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.dimension-error p {
+  margin: 2px 0;
+}
+
+/* --- Confirm dialog (DimensionInput) --- */
+.confirm-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  padding: 16px;
+}
+
+.confirm-dialog {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.confirm-dialog h3 {
+  margin: 0 0 12px;
+}
+
+.confirm-dialog p {
+  margin: 0 0 20px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.confirm-dialog-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.confirm-dialog-actions button {
+  padding: 8px 20px;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* --- Box list styling --- */
+.box-list__heading {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+.box-list__empty {
+  color: #666;
+  font-style: italic;
+}
+
+.box-list__items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.box-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.box-list-item:last-child {
+  border-bottom: none;
+}
+
+.box-list-item__color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.box-list-item__details {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex: 1;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+}
+
+.box-list-item__number {
+  font-weight: 500;
+}
+
+.box-list-item__makerworld {
+  font-size: 0.75rem;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.box-list-item__remove {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.box-list-item__remove:hover {
+  background: #ffebee;
+}
+
+/* --- Submit panel styling --- */
+.submit-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.submit-panel__field label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.submit-panel__field input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.submit-panel__field input:focus {
+  outline: none;
+  border-color: #1565c0;
+  box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.2);
+}
+
+.submit-panel__hint {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.submit-panel__button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #1565c0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-panel__button:hover:not(:disabled) {
+  background: #0d47a1;
+}
+
+.submit-panel__button:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+}
+
+.submit-panel__button:focus-visible {
+  outline: 2px solid #1565c0;
+  outline-offset: 2px;
+}
+
+.submit-panel__info {
+  color: #666;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.submit-panel__cooldown {
+  color: #e65100;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.submit-panel__error {
+  background: #ffebee;
+  border: 1px solid #ef9a9a;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.submit-panel__error p {
+  margin: 0 0 8px;
+  color: #c62828;
+  font-size: 0.875rem;
+}
+
+.submit-panel__retry-button {
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  color: #c62828;
+  background: #ffffff;
+  border: 1px solid #c62828;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-panel__retry-button:hover {
+  background: #ffcdd2;
+}
+
+.submit-panel__success {
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.submit-panel__success p {
+  margin: 0;
+  color: #2e7d32;
+  font-size: 0.875rem;
+}
+
+/* --- MakerWorld search styling --- */
+.makerworld-search h3 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+.makerworld-search__input-group {
+  margin-bottom: 12px;
+}
+
+.makerworld-search__label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.makerworld-search__input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.makerworld-search__input {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.makerworld-search__input:focus {
+  outline: none;
+  border-color: #1565c0;
+  box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.2);
+}
+
+.makerworld-search__button {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: #1565c0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.makerworld-search__button:hover:not(:disabled) {
+  background: #0d47a1;
+}
+
+.makerworld-search__button:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+}
+
+.makerworld-search__hint {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.makerworld-search__message {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.makerworld-search__message--error {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffcc80;
+}
+
+.makerworld-search__results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.makerworld-search__result-item {
+  border-bottom: 1px solid #eee;
+}
+
+.makerworld-search__result-item:last-child {
+  border-bottom: none;
+}
+
+.makerworld-search__result-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 4px;
+  transition: background-color 0.15s;
+}
+
+.makerworld-search__result-button:hover {
+  background: #f5f5f5;
+}
+
+.makerworld-search__thumbnail {
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.makerworld-search__result-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.makerworld-search__result-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.makerworld-search__result-size {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.makerworld-search__placement-active {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #e3f2fd;
+  border-radius: 4px;
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+
+.makerworld-search__cancel-button {
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  color: #c62828;
+  background: #ffffff;
+  border: 1px solid #c62828;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.makerworld-search__cancel-button:hover {
+  background: #ffebee;
+}
+
+/* --- Placement indicator --- */
+.placement-indicator {
+  margin-bottom: 8px;
+  padding: 4px 12px;
+  background-color: #e3f2fd;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #1565c0;
+}

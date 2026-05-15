@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#1a1a2e"/>
+  <g transform="translate(64, 64)">
+    <!-- 3x3 grid representing Gridfinity -->
+    <rect x="0" y="0" width="117" height="117" rx="8" fill="#4CAF50"/>
+    <rect x="133" y="0" width="117" height="117" rx="8" fill="#2196F3"/>
+    <rect x="266" y="0" width="117" height="117" rx="8" fill="#E0E0E0"/>
+    <rect x="0" y="133" width="117" height="117" rx="8" fill="#FF9800"/>
+    <rect x="133" y="133" width="250" height="117" rx="8" fill="#9C27B0"/>
+    <rect x="0" y="266" width="250" height="117" rx="8" fill="#F44336"/>
+    <rect x="266" y="266" width="117" height="117" rx="8" fill="#E0E0E0"/>
+  </g>
+</svg>

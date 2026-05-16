@@ -56,7 +56,11 @@ function AppContent() {
         {/* Left panel: Dimensions + Grid */}
         <div className="app__panel app__panel--primary">
           <DimensionInput />
-          <GridCanvas />
+          <div className={`app__drawer ${state.grid ? 'app__drawer--open' : ''}`}>
+            <div className="app__drawer-track">
+              <GridCanvas />
+            </div>
+          </div>
           {hasBoxes && (
             <div className="app__clear-section">
               <button

@@ -1,46 +1,22 @@
 {
-  "id": "/",
-  "name": "Gridfinity Drawer Designer",
-  "short_name": "Gridfinity",
-  "description": "Design custom Gridfinity drawer layouts with drag-and-drop box placement",
-  "start_url": "/",
-  "display": "standalone",
-  "orientation": "any",
-  "background_color": "#1a1a2e",
-  "theme_color": "#4CAF50",
-  "icons": [
-    {
-      "src": "/icon-48.png",
-      "sizes": "48x48",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "categories": ["utilities", "productivity"]
+    "name": "No More Wasted Space",
+    "short_name": "Gridfinity",
+    "description": "Design custom Gridfinity drawer layouts. Measure your drawer, fill it with bins.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#1a1a2e",
+    "theme_color": "#4CAF50",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
 }

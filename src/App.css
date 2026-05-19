@@ -10,15 +10,14 @@
   flex-direction: column;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: #1a1a2e;
-  background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 50%, #24243e 100%);
+  background: #f5f6fa;
 }
 
 /* --- Header --- */
 .app__header {
   padding: 20px 24px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1a1a2e;
+  border-bottom: none;
   text-align: center;
 }
 

@@ -1,0 +1,10 @@
+Keep this file and signing.keystore in a safe place. You'll need these files if you want to upload future versions of your PWA to the Google Play Store.
+
+Key store file: signing.keystore
+Key store password: zUKGpaaa6bkL
+Key alias: my-key-alias
+Key password: zUKGpaaa6bkL
+Signer's full name: Gridfinity Admin
+Signer's organization: No More Wasted Space
+Signer's organizational unit: Engineering
+Signer's country code: US

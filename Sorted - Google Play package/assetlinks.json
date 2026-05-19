@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.gridfinity.drawerdesigner",
+        "sha256_cert_fingerprints": ["74:76:C4:30:9F:87:11:C4:35:75:76:F5:FC:A2:D9:6A:F1:87:88:1D:2F:31:64:85:29:45:EC:3F:BB:38:96:AF"]
+      }
+    }]

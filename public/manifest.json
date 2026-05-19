@@ -1,6 +1,6 @@
 {
-    "name": "No More Wasted Space",
-    "short_name": "Gridfinity",
+    "name": "Sorted w/ Gridfinity",
+    "short_name": "Sorted",
     "description": "Design custom Gridfinity drawer layouts. Measure your drawer, fill it with bins.",
     "start_url": "./index.html",
     "display": "standalone",

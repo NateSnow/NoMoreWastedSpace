@@ -49,7 +49,10 @@ function AppContent() {
   return (
     <div className="app">
       <header className="app__header">
-        <h1>Gridfinity Drawer Designer</h1>
+        <div className="app__header-content">
+          <img src="/icon-96.png" alt="" className="app__header-icon" />
+          <h1>Sorted w/ Gridfinity</h1>
+        </div>
       </header>
 
       <main className="app__main">

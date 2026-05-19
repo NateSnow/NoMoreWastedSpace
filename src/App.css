@@ -15,10 +15,23 @@
 
 /* --- Header --- */
 .app__header {
-  padding: 20px 24px;
+  padding: 16px 24px;
   background: #1a1a2e;
   border-bottom: none;
   text-align: center;
+}
+
+.app__header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.app__header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
 }
 
 .app__header h1 {

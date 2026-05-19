@@ -277,6 +277,7 @@
   box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
   background: #fafafa;
+  color: #1a1a2e;
 }
 
 .dimension-field input:focus {
@@ -497,6 +498,7 @@ section button[aria-label="Calculate grid from drawer dimensions"]:active {
   box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
   background: #fafafa;
+  color: #1a1a2e;
 }
 
 .submit-panel__field input:focus {
@@ -594,6 +596,7 @@ section button[aria-label="Calculate grid from drawer dimensions"]:active {
   border-radius: 10px;
   transition: border-color 0.2s;
   background: #fafafa;
+  color: #1a1a2e;
 }
 
 .makerworld-search__input:focus {

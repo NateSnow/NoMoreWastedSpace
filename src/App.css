@@ -1,11 +1,6 @@
 /**
- * App layout styles for the Gridfinity Drawer Designer.
- *
- * Responsive layout:
- * - Single-column at < 768px viewport width
- * - Multi-panel (side-by-side) layout at ≥ 768px
- *
- * Requirements: 7.4, 7.5
+ * App styles for Sorted w/ Gridfinity
+ * Modern, colorful design with drawer animation
  */
 
 /* --- App container --- */
@@ -13,25 +8,29 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    sans-serif;
-  color: #1a1a1a;
-  background: #f8f9fa;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #1a1a2e;
+  background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 50%, #24243e 100%);
 }
 
 /* --- Header --- */
 .app__header {
-  padding: 16px 20px;
-  background: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
 }
 
 .app__header h1 {
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1565c0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4CAF50, #2196F3, #9C27B0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
 }
 
 /* --- Main content area --- */
@@ -39,8 +38,8 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 16px;
-  gap: 16px;
+  padding: 20px;
+  gap: 20px;
   max-width: 1600px;
   margin: 0 auto;
   width: 100%;
@@ -66,35 +65,44 @@
 .app__drawer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  border-top: 3px solid #795548;
-  border-radius: 0 0 8px 8px;
-  background: #f5f5f5;
-  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0 0 12px 12px;
+  position: relative;
+}
+
+.app__drawer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #795548, #8D6E63, #A1887F, #8D6E63, #795548);
+  border-radius: 0 0 3px 3px;
+  z-index: 1;
 }
 
 .app__drawer--open {
-  max-height: 2000px;
-  transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 3000px;
+  transition: max-height 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .app__drawer-track {
-  padding: 8px 0;
+  padding: 12px 0 0;
   transform-origin: top center;
-  animation: none;
 }
 
 .app__drawer--open .app__drawer-track {
-  animation: drawerSlideDown 0.6s ease-out;
+  animation: drawerSlideDown 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes drawerSlideDown {
   from {
-    transform: translateY(-20px);
-    opacity: 0.3;
+    transform: translateY(-30px) scaleY(0.95);
+    opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(0) scaleY(1);
     opacity: 1;
   }
 }
@@ -108,24 +116,22 @@
 
 .app__clear-button {
   padding: 8px 16px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #d32f2f;
-  background: #ffffff;
-  border: 1px solid #d32f2f;
-  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ff5252;
+  background: rgba(255, 82, 82, 0.1);
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition: all 0.2s;
 }
 
 .app__clear-button:hover {
-  background: #d32f2f;
+  background: #ff5252;
   color: #ffffff;
-}
-
-.app__clear-button:focus-visible {
-  outline: 2px solid #d32f2f;
-  outline-offset: 2px;
+  border-color: #ff5252;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 82, 82, 0.3);
 }
 
 /* --- Dialog overlay --- */
@@ -135,30 +141,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
   z-index: 1000;
   padding: 16px;
 }
 
 .app__dialog {
   background: #ffffff;
-  border-radius: 8px;
-  padding: 24px;
+  border-radius: 16px;
+  padding: 28px;
   max-width: 400px;
   width: 100%;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .app__dialog h2 {
   margin: 0 0 12px;
   font-size: 1.25rem;
-  color: #1a1a1a;
+  color: #1a1a2e;
 }
 
 .app__dialog p {
-  margin: 0 0 20px;
+  margin: 0 0 24px;
   color: #555;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .app__dialog-actions {
@@ -168,50 +175,39 @@
 }
 
 .app__dialog-button {
-  padding: 8px 20px;
+  padding: 10px 22px;
   font-size: 0.875rem;
-  font-weight: 500;
-  border-radius: 4px;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
-  border: 1px solid transparent;
-  transition: background-color 0.2s;
+  border: none;
+  transition: all 0.2s;
 }
 
 .app__dialog-button--confirm {
-  background: #d32f2f;
+  background: #ff5252;
   color: #ffffff;
-  border-color: #d32f2f;
 }
 
 .app__dialog-button--confirm:hover {
-  background: #b71c1c;
-}
-
-.app__dialog-button--confirm:focus-visible {
-  outline: 2px solid #d32f2f;
-  outline-offset: 2px;
+  background: #d32f2f;
+  transform: translateY(-1px);
 }
 
 .app__dialog-button--cancel {
-  background: #f5f5f5;
+  background: #f0f0f0;
   color: #333;
-  border-color: #ccc;
 }
 
 .app__dialog-button--cancel:hover {
   background: #e0e0e0;
 }
 
-.app__dialog-button--cancel:focus-visible {
-  outline: 2px solid #1565c0;
-  outline-offset: 2px;
-}
-
 /* --- Responsive: Multi-panel layout at ≥ 768px --- */
 @media (min-width: 768px) {
   .app__main {
     flex-direction: row;
-    padding: 24px;
+    padding: 28px;
     gap: 24px;
   }
 
@@ -228,56 +224,95 @@
   }
 }
 
-/* --- Component section styling --- */
+/* --- Component section styling (glass morphism) --- */
 .app__panel section,
 .app__panel .makerworld-search,
 .app__panel .grid-canvas-container {
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s;
+}
+
+.app__panel section:hover,
+.app__panel .makerworld-search:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 /* --- Dimension input field layout --- */
 .dimension-field {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .dimension-field label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-bottom: 4px;
-  color: #333;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .dimension-field input {
   width: 100%;
-  padding: 8px 12px;
+  padding: 12px 14px;
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
   box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fafafa;
 }
 
 .dimension-field input:focus {
   outline: none;
-  border-color: #1565c0;
-  box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.2);
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+  background: #ffffff;
 }
 
 .dimension-field input[aria-invalid="true"] {
-  border-color: #d32f2f;
+  border-color: #ff5252;
+  box-shadow: 0 0 0 3px rgba(255, 82, 82, 0.1);
 }
 
 .dimension-error {
-  color: #d32f2f;
+  color: #ff5252;
   font-size: 0.8rem;
-  margin-top: 4px;
+  margin-top: 6px;
+  font-weight: 500;
 }
 
 .dimension-error p {
   margin: 2px 0;
+}
+
+/* --- Calculate Grid button --- */
+section button[aria-label="Calculate grid from drawer dimensions"] {
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+  letter-spacing: 0.3px;
+}
+
+section button[aria-label="Calculate grid from drawer dimensions"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+section button[aria-label="Calculate grid from drawer dimensions"]:active {
+  transform: translateY(0);
 }
 
 /* --- Confirm dialog (DimensionInput) --- */
@@ -287,28 +322,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
   z-index: 1000;
   padding: 16px;
 }
 
 .confirm-dialog {
   background: #ffffff;
-  border-radius: 8px;
-  padding: 24px;
+  border-radius: 16px;
+  padding: 28px;
   max-width: 400px;
   width: 100%;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .confirm-dialog h3 {
   margin: 0 0 12px;
+  font-size: 1.2rem;
 }
 
 .confirm-dialog p {
-  margin: 0 0 20px;
+  margin: 0 0 24px;
   color: #555;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .confirm-dialog-actions {
@@ -318,21 +355,27 @@
 }
 
 .confirm-dialog-actions button {
-  padding: 8px 20px;
+  padding: 10px 22px;
   font-size: 0.875rem;
-  border-radius: 4px;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
+  border: none;
+  transition: all 0.2s;
 }
 
 /* --- Box list styling --- */
 .box-list__heading {
-  margin: 0 0 12px;
+  margin: 0 0 14px;
   font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
 }
 
 .box-list__empty {
-  color: #666;
+  color: #888;
   font-style: italic;
+  font-size: 0.9rem;
 }
 
 .box-list__items {
@@ -344,9 +387,15 @@
 .box-list-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
+  gap: 10px;
+  padding: 10px 8px;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.box-list-item:hover {
+  background: #f8f8f8;
 }
 
 .box-list-item:last-child {
@@ -354,10 +403,11 @@
 }
 
 .box-list-item__color {
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
   flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .box-list-item__details {
@@ -370,146 +420,139 @@
 }
 
 .box-list-item__number {
-  font-weight: 500;
+  font-weight: 700;
+  color: #1a1a2e;
 }
 
 .box-list-item__makerworld {
-  font-size: 0.75rem;
-  background: #e3f2fd;
-  padding: 2px 6px;
-  border-radius: 3px;
+  font-size: 0.7rem;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
 }
 
 .box-list-item__remove {
   background: none;
   border: none;
-  color: #d32f2f;
+  color: #ff5252;
   cursor: pointer;
-  font-size: 1rem;
-  padding: 4px 8px;
-  border-radius: 4px;
+  font-size: 1.1rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.15s;
 }
 
 .box-list-item__remove:hover {
-  background: #ffebee;
+  background: rgba(255, 82, 82, 0.1);
+  transform: scale(1.1);
 }
 
 /* --- Submit panel styling --- */
 .submit-panel {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+}
+
+.submit-panel h3 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.submit-panel__field {
+  margin-bottom: 4px;
 }
 
 .submit-panel__field label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-bottom: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .submit-panel__field input {
   width: 100%;
-  padding: 8px 12px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
   box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fafafa;
 }
 
 .submit-panel__field input:focus {
   outline: none;
-  border-color: #1565c0;
-  box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.2);
+  border-color: #2196F3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.15);
+  background: #ffffff;
 }
 
 .submit-panel__hint {
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 4px;
+  display: block;
 }
 
 .submit-panel__button {
-  padding: 12px 24px;
+  padding: 14px 24px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #ffffff;
-  background: #1565c0;
+  background: linear-gradient(135deg, #2196F3, #1565C0);
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
 }
 
 .submit-panel__button:hover:not(:disabled) {
-  background: #0d47a1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+}
+
+.submit-panel__button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .submit-panel__button:disabled {
-  background: #bdbdbd;
+  background: #ccc;
   cursor: not-allowed;
 }
 
-.submit-panel__button:focus-visible {
-  outline: 2px solid #1565c0;
-  outline-offset: 2px;
-}
-
 .submit-panel__info {
-  color: #666;
+  color: #888;
   font-size: 0.85rem;
   font-style: italic;
 }
 
-.submit-panel__cooldown {
-  color: #e65100;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.submit-panel__error {
-  background: #ffebee;
-  border: 1px solid #ef9a9a;
-  border-radius: 4px;
-  padding: 12px;
-}
-
-.submit-panel__error p {
-  margin: 0 0 8px;
-  color: #c62828;
-  font-size: 0.875rem;
-}
-
-.submit-panel__retry-button {
-  padding: 6px 16px;
-  font-size: 0.8rem;
-  color: #c62828;
-  background: #ffffff;
-  border: 1px solid #c62828;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.submit-panel__retry-button:hover {
-  background: #ffcdd2;
-}
-
 .submit-panel__success {
-  background: #e8f5e9;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
   border: 1px solid #a5d6a7;
-  border-radius: 4px;
-  padding: 12px;
+  border-radius: 10px;
+  padding: 14px;
 }
 
 .submit-panel__success p {
   margin: 0;
   color: #2e7d32;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 /* --- MakerWorld search styling --- */
 .makerworld-search h3 {
   margin: 0 0 12px;
   font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .makerworld-search__input-group {
@@ -518,9 +561,12 @@
 
 .makerworld-search__label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-bottom: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .makerworld-search__input-row {
@@ -530,49 +576,54 @@
 
 .makerworld-search__input {
   flex: 1;
-  padding: 8px 12px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  transition: border-color 0.2s;
+  background: #fafafa;
 }
 
 .makerworld-search__input:focus {
   outline: none;
-  border-color: #1565c0;
-  box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.2);
+  border-color: #9C27B0;
+  box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.15);
+  background: #ffffff;
 }
 
 .makerworld-search__button {
-  padding: 8px 16px;
-  font-size: 0.875rem;
-  font-weight: 500;
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: #ffffff;
-  background: #1565c0;
+  background: linear-gradient(135deg, #9C27B0, #7B1FA2);
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   white-space: nowrap;
+  transition: all 0.2s;
 }
 
 .makerworld-search__button:hover:not(:disabled) {
-  background: #0d47a1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
 }
 
 .makerworld-search__button:disabled {
-  background: #bdbdbd;
+  background: #ccc;
   cursor: not-allowed;
 }
 
 .makerworld-search__hint {
   display: block;
-  font-size: 0.8rem;
-  color: #666;
-  margin-top: 4px;
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 6px;
 }
 
 .makerworld-search__message {
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 10px 14px;
+  border-radius: 8px;
   font-size: 0.85rem;
   margin-bottom: 8px;
 }
@@ -590,7 +641,7 @@
 }
 
 .makerworld-search__result-item {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .makerworld-search__result-item:last-child {
@@ -602,13 +653,13 @@
   align-items: center;
   gap: 12px;
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
-  border-radius: 4px;
-  transition: background-color 0.15s;
+  border-radius: 8px;
+  transition: background 0.15s;
 }
 
 .makerworld-search__result-button:hover {
@@ -616,7 +667,7 @@
 }
 
 .makerworld-search__thumbnail {
-  border-radius: 4px;
+  border-radius: 6px;
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -629,47 +680,31 @@
 
 .makerworld-search__result-name {
   font-size: 0.875rem;
-  font-weight: 500;
-  color: #1a1a1a;
+  font-weight: 600;
+  color: #1a1a2e;
 }
 
 .makerworld-search__result-size {
   font-size: 0.75rem;
-  color: #666;
-}
-
-.makerworld-search__placement-active {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 8px 12px;
-  background: #e3f2fd;
-  border-radius: 4px;
-  margin-top: 8px;
-  font-size: 0.85rem;
-}
-
-.makerworld-search__cancel-button {
-  padding: 4px 12px;
-  font-size: 0.8rem;
-  color: #c62828;
-  background: #ffffff;
-  border: 1px solid #c62828;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.makerworld-search__cancel-button:hover {
-  background: #ffebee;
+  color: #888;
 }
 
 /* --- Placement indicator --- */
 .placement-indicator {
-  margin-bottom: 8px;
-  padding: 4px 12px;
-  background-color: #e3f2fd;
-  border-radius: 4px;
-  font-size: 14px;
-  color: #1565c0;
+  margin-bottom: 10px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1565C0;
+  text-align: center;
+}
+
+/* --- Height controls --- */
+section h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 12px;
 }

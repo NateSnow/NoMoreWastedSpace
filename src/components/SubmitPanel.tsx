@@ -11,6 +11,7 @@ import { useAppState } from '../state/AppStateContext';
 import { generateSpecFile } from '../core/SpecFileGenerator';
 import { HeightManager } from '../core/HeightManager';
 import { GRID_BASE_MM } from '../core/constants';
+import { Confetti } from './Confetti';
 
 /** Operator email address where specs are sent. */
 const OPERATOR_EMAIL = 'snowmuchfun.events@gmail.com';
@@ -22,6 +23,7 @@ export function SubmitPanel() {
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const { boxes, grid, dimensions, heightConfig } = state;
   const hasBoxes = boxes.length > 0;
@@ -79,10 +81,12 @@ export function SubmitPanel() {
 
     window.location.href = `mailto:${OPERATOR_EMAIL}?subject=${subject}&body=${encodedBody}`;
     setSubmitted(true);
+    setShowConfetti(true);
   }, [formatSpecForEmail]);
 
   return (
     <section className="submit-panel" aria-label="Submit design">
+      <Confetti active={showConfetti} onComplete={() => setShowConfetti(false)} />
       <h3>Contact Information</h3>
 
       {/* Name */}

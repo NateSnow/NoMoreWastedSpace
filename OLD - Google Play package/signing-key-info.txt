@@ -4,7 +4,7 @@ Key store file: signing.keystore
 Key store password: zUKGpaaa6bkL
 Key alias: my-key-alias
 Key password: zUKGpaaa6bkL
-Signer's full name: 
-Signer's organization: 
-Signer's organizational unit: 
-Signer's country code: 
+Signer's full name: Gridfinity Admin
+Signer's organization: No More Wasted Space
+Signer's organizational unit: Engineering
+Signer's country code: US

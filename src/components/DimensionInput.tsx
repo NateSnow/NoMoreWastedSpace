@@ -87,9 +87,7 @@ export function DimensionInput() {
    * dimensions directly or shows a confirmation dialog.
    */
   const handleSubmit = useCallback(() => {
-    // Convert height units to mm for validation
-    const heightMm = (Number(height) * 7).toString();
-    const result = validateDimensions({ width, depth, height: heightMm });
+    const result = validateDimensions({ width, depth, height });
 
     if (!result.valid) {
       const categorized = categorizeErrors(result.errors);
@@ -110,7 +108,7 @@ export function DimensionInput() {
     const dimensions: DrawerDimensions = {
       width: Number(width),
       depth: Number(depth),
-      height: Number(height) * 7, // Convert height units to mm (1 unit = 7mm)
+      height: Number(height),
     };
 
     // If boxes exist, show confirmation dialog (Req 8.3)
@@ -214,11 +212,11 @@ export function DimensionInput() {
 
         {/* Height field */}
         <div className="dimension-field">
-          <label htmlFor="dimension-height">Height (units, 1 unit = 7mm)</label>
+          <label htmlFor="dimension-height">Height (mm)</label>
           <input
             id="dimension-height"
             type="number"
-            inputMode="numeric"
+            inputMode="decimal"
             value={height}
             onChange={(e) => setHeight(e.target.value)}
             aria-describedby={

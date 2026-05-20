@@ -1,176 +1,133 @@
 /**
- * MakerWorldSearch Component
+ * Bin Catalog Picker — curated catalog of available bins.
  *
- * Provides a keyword search interface for MakerWorld specialty bins.
- * Users can search by keyword (minimum 2 characters), view results with
- * thumbnails and grid sizes, and select a model to enter placement mode.
- *
- * Requirements: 5.1, 5.2, 5.3, 5.4, 5.7, 5.8
+ * Users browse by category and select bins to place on the grid.
  */
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { useAppState } from '../state/AppStateContext';
-import { MakerWorldSearchClient } from '../api/MakerWorldSearchClient';
-import { MIN_SEARCH_KEYWORD_LENGTH } from '../core/constants';
-import type { MakerWorldModel } from '../core/types';
+import {
+  getStandardBins,
+  getWorkshopBins,
+  getKitchenBins,
+  getOfficeBins,
+  getElectronicsBins,
+  type CatalogBin,
+  type BinCategory,
+} from '../core/binCatalog';
 
-interface MakerWorldSearchProps {
-  /** Optional MakerWorldSearchClient instance (for dependency injection/testing). */
-  searchClient?: MakerWorldSearchClient;
+const CATEGORIES: { key: BinCategory; label: string; emoji: string }[] = [
+  { key: 'standard', label: 'Standard', emoji: '📦' },
+  { key: 'workshop', label: 'Workshop', emoji: '🔧' },
+  { key: 'kitchen', label: 'Kitchen', emoji: '🍳' },
+  { key: 'office', label: 'Office', emoji: '📎' },
+  { key: 'electronics', label: 'Electronics', emoji: '⚡' },
+];
+
+function getBinsForCategory(category: BinCategory): CatalogBin[] {
+  switch (category) {
+    case 'standard': return getStandardBins();
+    case 'workshop': return getWorkshopBins();
+    case 'kitchen': return getKitchenBins();
+    case 'office': return getOfficeBins();
+    case 'electronics': return getElectronicsBins();
+  }
 }
 
-/**
- * MakerWorldSearch component for searching and selecting MakerWorld models.
- */
-export function MakerWorldSearch({ searchClient }: MakerWorldSearchProps) {
+export function MakerWorldSearch() {
   const { state, dispatch } = useAppState();
-  const [keyword, setKeyword] = useState(state.searchKeyword || '');
-  const clientRef = useRef(searchClient ?? new MakerWorldSearchClient());
+  const [activeCategory, setActiveCategory] = useState<BinCategory>('standard');
+  const [selectedBin, setSelectedBin] = useState<CatalogBin | null>(null);
 
-  const handleSearch = useCallback(async () => {
-    if (keyword.length < MIN_SEARCH_KEYWORD_LENGTH) {
-      return;
-    }
+  const bins = getBinsForCategory(activeCategory);
+  const hasGrid = state.grid !== null;
 
-    // Update keyword in app state
-    dispatch({ type: 'SET_SEARCH_KEYWORD', payload: { keyword } });
-
-    // Set loading state
+  const handleSelectBin = useCallback((bin: CatalogBin) => {
+    setSelectedBin(bin);
     dispatch({
-      type: 'SET_SEARCH_RESULTS',
-      payload: { results: [], error: null, loading: true },
-    });
-
-    const result = await clientRef.current.search(keyword);
-
-    dispatch({
-      type: 'SET_SEARCH_RESULTS',
+      type: 'ENTER_PLACEMENT_MODE',
       payload: {
-        results: result.models,
-        error: result.error ?? null,
-        loading: false,
+        itemType: bin.category === 'standard' ? 'standard' : 'makerworld',
+        makerWorldModel: bin.category !== 'standard' ? {
+          id: bin.id,
+          name: bin.name,
+          thumbnailUrl: '',
+          gridWidth: bin.widthCells,
+          gridDepth: bin.depthCells,
+        } : undefined,
       },
     });
-  }, [keyword, dispatch]);
+  }, [dispatch]);
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
-        handleSearch();
-      }
-    },
-    [handleSearch]
-  );
-
-  const handleSelectModel = useCallback(
-    (model: MakerWorldModel) => {
-      dispatch({
-        type: 'ENTER_PLACEMENT_MODE',
-        payload: {
-          itemType: 'makerworld',
-          makerWorldModel: model,
-        },
-      });
-    },
-    [dispatch]
-  );
-
-  const isSearchDisabled = keyword.length < MIN_SEARCH_KEYWORD_LENGTH;
+  const handleCancel = useCallback(() => {
+    setSelectedBin(null);
+    dispatch({ type: 'EXIT_PLACEMENT_MODE' });
+  }, [dispatch]);
 
   return (
-    <div className="makerworld-search" role="search" aria-label="MakerWorld model search">
-      <h3>MakerWorld Models</h3>
+    <div className="makerworld-search">
+      <h3>📋 Bin Catalog</h3>
 
-      <div className="makerworld-search__input-group">
-        <label htmlFor="makerworld-keyword" className="makerworld-search__label">
-          Search keyword
-        </label>
-        <div className="makerworld-search__input-row">
-          <input
-            id="makerworld-keyword"
-            type="text"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Search MakerWorld models..."
-            aria-describedby="makerworld-keyword-hint"
-            className="makerworld-search__input"
-          />
+      {/* Category tabs */}
+      <div className="bin-catalog__tabs">
+        {CATEGORIES.map(cat => (
           <button
+            key={cat.key}
+            className={`bin-catalog__tab ${activeCategory === cat.key ? 'bin-catalog__tab--active' : ''}`}
+            onClick={() => setActiveCategory(cat.key)}
             type="button"
-            onClick={handleSearch}
-            disabled={isSearchDisabled || state.searchLoading}
-            className="makerworld-search__button"
-            aria-label="Search"
+            title={cat.label}
           >
-            {state.searchLoading ? 'Searching...' : 'Search'}
+            <span className="bin-catalog__tab-emoji">{cat.emoji}</span>
+            <span className="bin-catalog__tab-label">{cat.label}</span>
           </button>
-        </div>
-        <span id="makerworld-keyword-hint" className="makerworld-search__hint">
-          {keyword.length > 0 && keyword.length < MIN_SEARCH_KEYWORD_LENGTH
-            ? `Enter at least ${MIN_SEARCH_KEYWORD_LENGTH} characters to search`
-            : 'Enter a keyword to search for specialty bins'}
-        </span>
+        ))}
       </div>
 
-      {/* Error state */}
-      {state.searchError && !state.searchLoading && (
-        <div
-          className="makerworld-search__message makerworld-search__message--error"
-          role="alert"
-          aria-live="polite"
-        >
-          {state.searchError}
-        </div>
-      )}
-
-      {/* Results list */}
-      {state.searchResults.length > 0 && !state.searchLoading && (
-        <ul className="makerworld-search__results" aria-label="Search results">
-          {state.searchResults.map((model) => (
-            <li key={model.id} className="makerworld-search__result-item">
-              <button
-                type="button"
-                className="makerworld-search__result-button"
-                onClick={() => handleSelectModel(model)}
-                aria-label={`Select ${model.name} (${model.gridWidth}×${model.gridDepth} grid units)`}
-              >
-                <img
-                  src={model.thumbnailUrl}
-                  alt={`Thumbnail of ${model.name}`}
-                  className="makerworld-search__thumbnail"
-                  width={48}
-                  height={48}
-                  loading="lazy"
-                />
-                <div className="makerworld-search__result-info">
-                  <span className="makerworld-search__result-name">
-                    {model.name}
-                  </span>
-                  <span className="makerworld-search__result-size">
-                    {model.gridWidth} × {model.gridDepth} grid units
-                  </span>
-                </div>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {/* Placement mode indicator */}
-      {state.placementMode.active && state.placementMode.itemType === 'makerworld' && state.placementMode.makerWorldModel && (
-        <div className="makerworld-search__placement-active" role="status" aria-live="polite">
+      {/* Selected bin indicator */}
+      {selectedBin && (
+        <div className="bin-catalog__selected">
           <span>
-            Placing: <strong>{state.placementMode.makerWorldModel.name}</strong>{' '}
-            ({state.placementMode.makerWorldModel.gridWidth} × {state.placementMode.makerWorldModel.gridDepth})
+            Placing: <strong>{selectedBin.name}</strong>
+            {' '}({selectedBin.widthCells / 2}×{selectedBin.depthCells / 2} units)
           </span>
           <button
+            className="bin-catalog__cancel"
+            onClick={handleCancel}
             type="button"
-            className="makerworld-search__cancel-button"
-            onClick={() => dispatch({ type: 'EXIT_PLACEMENT_MODE' })}
           >
             Cancel
           </button>
+        </div>
+      )}
+
+      {/* Bin grid */}
+      {!hasGrid && (
+        <p className="bin-catalog__hint">Calculate a grid first to start placing bins.</p>
+      )}
+
+      {hasGrid && (
+        <div className="bin-catalog__grid">
+          {bins.map((bin) => (
+            <button
+              key={bin.id}
+              className={`bin-catalog__item ${selectedBin?.id === bin.id ? 'bin-catalog__item--selected' : ''}`}
+              onClick={() => handleSelectBin(bin)}
+              type="button"
+              title={bin.description}
+            >
+              <div
+                className="bin-catalog__item-preview"
+                style={{
+                  aspectRatio: `${bin.widthCells} / ${bin.depthCells}`,
+                }}
+              />
+              <span className="bin-catalog__item-name">{bin.name}</span>
+              {bin.description && (
+                <span className="bin-catalog__item-desc">{bin.description}</span>
+              )}
+            </button>
+          ))}
         </div>
       )}
     </div>

@@ -189,6 +189,25 @@ export function GridCanvas() {
       const cell = getCellFromEvent(clientX, clientY);
       if (!cell) return;
 
+      // If a catalog bin is selected (placement mode with fixed dimensions)
+      if (state.placementMode.active && state.placementMode.makerWorldModel) {
+        const model = state.placementMode.makerWorldModel;
+        const endCell = {
+          col: cell.col + model.gridWidth - 1,
+          row: cell.row + model.gridDepth - 1,
+        };
+        // Check bounds
+        if (endCell.col >= state.grid.columnsX || endCell.row >= state.grid.rowsY) {
+          return; // Doesn't fit
+        }
+        dispatch({
+          type: 'PLACE_BOX',
+          payload: { start: cell, end: endCell },
+        });
+        return;
+      }
+
+      // Free placement mode (no catalog bin selected)
       // If not mid-selection and clicking on an existing box, remove it
       if (!selectionStart) {
         const boxId = findBoxAtCell(cell);
@@ -210,7 +229,7 @@ export function GridCanvas() {
         setHoverCell(null);
       }
     },
-    [state.grid, selectionStart, getCellFromEvent, findBoxAtCell, dispatch]
+    [state.grid, state.placementMode, selectionStart, getCellFromEvent, findBoxAtCell, dispatch]
   );
 
   /**

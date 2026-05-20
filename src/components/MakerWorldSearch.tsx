@@ -48,13 +48,13 @@ export function MakerWorldSearch() {
       type: 'ENTER_PLACEMENT_MODE',
       payload: {
         itemType: bin.category === 'standard' ? 'standard' : 'makerworld',
-        makerWorldModel: bin.category !== 'standard' ? {
+        makerWorldModel: {
           id: bin.id,
           name: bin.name,
           thumbnailUrl: '',
           gridWidth: bin.widthCells,
           gridDepth: bin.depthCells,
-        } : undefined,
+        },
       },
     });
   }, [dispatch]);
